@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-		<ModulePrefs title="__MSG_gadget.title__"
-			directory_title="__MSG_gadget.title__"
-			description="__MSG_gadget.description__"
+		<ModulePrefs title="Quips"
+			directory_title="Quips"
+			description="A gadget to manage quips in JIRA"
 			author="Luke Halliwell"
 			thumbnail="__ATLASSIAN_BASE_URL__/download/resources/com.jiraquips.jiraquips/thumbnail.png">
 		<Optional feature="gadget-directory">
