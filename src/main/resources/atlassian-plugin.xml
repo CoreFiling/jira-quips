@@ -12,10 +12,6 @@
         <description>Provides quips services</description>
     </rest>
 	
-	<resource type="download" name="i18n/ALL_ALL.xml" location="i18n/ALL_ALL.xml">
-		<param name="content-type" value="text/xml; charset=UTF-8"/>
-	</resource>
-	
 	<resource type="download" name="thumbnail.png" location="thumbnail.png">
 		<param name="content-type" value="image/png"/>
 	</resource>
