@@ -3,8 +3,8 @@ package com.jiraquips;
 import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.security.Permissions;
-import com.atlassian.jira.ManagerFactory;
-import com.opensymphony.user.User;
+import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.user.ApplicationUser;
 
 import java.util.Map;
 import java.util.Collection;
@@ -28,9 +28,9 @@ public class QuipsResource {
 	public QuipsResource(JiraAuthenticationContext authenticationContext) {
 		this.authenticationContext = authenticationContext;
 	}
-	
+
 	JiraAuthenticationContext authenticationContext;
-	
+
     /**
      * This method will be called if no extra path information
      * is used in the request.
@@ -57,11 +57,11 @@ public class QuipsResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes("application/x-www-form-urlencoded")
 	public Response addQuip(@FormParam("quip") String text) {
-		final User author = authenticationContext.getUser();
+		final ApplicationUser author = authenticationContext.getUser();
 		Quip newQuip = new QuipsCollection().addQuip(author, text);
 		return Response.ok(newQuip).build();
 	}
-	
+
     /**
      * This method will be called if the request contains an extra path
      * element.  The extra path element is extracted and passed in as the
@@ -77,7 +77,7 @@ public class QuipsResource {
     {
         return Response.ok(getQuipFromKey(key)).build();
     }
-	
+
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{key}/delete")
@@ -87,12 +87,12 @@ public class QuipsResource {
 		}
 		return Response.noContent().build();
 	}
-	
+
 	private boolean canDelete() {
-		User user = authenticationContext.getUser();
+		ApplicationUser user = authenticationContext.getUser();
 		if (user != null)
 		{
-			return ManagerFactory.getPermissionManager().hasPermission(Permissions.ADMINISTER, user);
+			return ComponentAccessor.getGlobalPermissionManager().hasPermission(Permissions.ADMINISTER, user);
 		}
 		return false;
 	}
